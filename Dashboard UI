@@ -1,0 +1,20 @@
+<h1 id="speed">0 RPM</h1>
+<h2 id="status"></h2>
+
+<script>
+function update(){
+ fetch("get_data.php")
+ .then(res=>res.json())
+ .then(d=>{
+   document.getElementById("speed").innerText = d.speed + " RPM";
+   
+   let s = document.getElementById("status");
+   s.innerText = d.status;
+
+   if(d.status=="NORMAL") s.style.color="green";
+   else if(d.status=="WARNING") s.style.color="orange";
+   else s.style.color="red";
+ });
+}
+setInterval(update,2000);
+</script>
