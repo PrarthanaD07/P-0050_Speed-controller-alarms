@@ -1,0 +1,7 @@
+<form method="POST" action="insert_data.php">
+<input name="speed" placeholder="Speed">
+<input name="temp" placeholder="Temperature">
+<input name="voltage" placeholder="Voltage">
+<button>Submit</button>
+</form>
+if(speed < 0) alert("Invalid speed");
