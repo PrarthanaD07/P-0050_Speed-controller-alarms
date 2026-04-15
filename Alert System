@@ -1,0 +1,4 @@
+if(data.status=="CRITICAL"){
+ alert("🚨 Critical Alert!");
+ new Audio("alarm.mp3").play();
+}
