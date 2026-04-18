@@ -1,0 +1,112 @@
+import unittest
+from app import predict_speed
+
+class TestMotorSystem(unittest.TestCase):
+
+    def test_prediction(self):
+        result = predict_speed(150)
+        self.assertTrue(result > 1000)
+
+    def test_over_speed(self):
+        predicted = 1500
+        actual = 1700
+
+        status = ""
+        if actual > predicted + 120:
+            status = "OVER"
+
+        self.assertEqual(status, "OVER")
+
+    def test_under_speed(self):
+        predicted = 1500
+        actual = 1200
+
+        status = ""
+        if actual < predicted - 120:
+            status = "UNDER"
+
+        self.assertEqual(status, "UNDER")
+
+    def test_normal_speed(self):
+        predicted = 1500
+        actual = 1520
+
+        status = ""
+        if predicted - 120 <= actual <= predicted + 120:
+            status = "NORMAL"
+
+        self.assertEqual(status, "NORMAL")
+
+if __name__ == "__main__":
+    unittest.main()
+import requests
+
+url = "http://127.0.0.1:5000/data"
+
+response = requests.get(url)
+
+print(response.json())
+
+#TESTING SOLUTION CODE
+import unittest
+from app import predict_speed
+
+# Copy same logic here OR import if separated
+def check_status(predicted, actual):
+    if actual > predicted + 120:
+        return "OVER"
+    elif actual < predicted - 120:
+        return "UNDER"
+    else:
+        return "NORMAL"
+
+
+class TestAIMotorSystem(unittest.TestCase):
+
+    def test_ai_prediction(self):
+        speed = predict_speed(150)
+        self.assertTrue(speed > 1000)
+
+    def test_over_speed(self):
+        predicted = 1500
+        actual = 1700
+        self.assertEqual(check_status(predicted, actual), "OVER")
+
+    def test_under_speed(self):
+        predicted = 1500
+        actual = 1200
+        self.assertEqual(check_status(predicted, actual), "UNDER")
+
+    def test_normal_speed(self):
+        predicted = 1500
+        actual = 1520
+        self.assertEqual(check_status(predicted, actual), "NORMAL")
+
+    def test_edge_case_high(self):
+        predicted = 1500
+        actual = 1620  # boundary
+        self.assertEqual(check_status(predicted, actual), "NORMAL")
+
+    def test_edge_case_low(self):
+        predicted = 1500
+        actual = 1380  # boundary
+        self.assertEqual(check_status(predicted, actual), "NORMAL")
+
+
+if __name__ == "__main__":
+    unittest.main()
+import requests
+
+def test_api():
+    url = "http://127.0.0.1:5000/data"
+    
+    response = requests.get(url)
+
+    if response.status_code == 200:
+        data = response.json()
+        print("API Working ✅")
+        print(data)
+    else:
+        print("API Failed ❌")
+
+test_api()
